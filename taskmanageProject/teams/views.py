@@ -98,7 +98,7 @@ def team_list(request):
 # 팀 상세 조회
 def team_detail(request, id):
     team = get_object_or_404(Team, pk=id)
-    tasks = team.task_set.all().order_by('deadline')  # 팀에 할당된 모든 할일 조회
+    tasks = team.task_set.all().order_by('title')  # 팀에 할당된 모든 할일 조회
     paginator = Paginator(tasks, 5)
     pagnum = request.GET.get('page')
     tasks = paginator.get_page(pagnum)
@@ -167,9 +167,6 @@ def task_update(request, id):
     manager_ids = list(task_update.manager.all().values_list('id', flat=True))
     return render(request, 'task_create.html', {'form': form, 'task_update': task_update, 'team': team, 'manager': manager_ids})
 
-
-
-# 할 일 삭제하기
 # 할 일 삭제하기
 def task_delete(request, id):
     task = get_object_or_404(Task, pk=id)

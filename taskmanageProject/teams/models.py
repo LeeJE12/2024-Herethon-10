@@ -21,7 +21,6 @@ class Task(models.Model):
     title = models.CharField(verbose_name="할일 제목", max_length=100)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
     manager = models.ManyToManyField(User, related_name='manager') #할일 담당자
-    deadline = models.DateTimeField(verbose_name="할일 기한")
     finished = models.BooleanField(default=False)
     
     def __str__(self):
